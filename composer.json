@@ -1,0 +1,30 @@
+{
+  "name": "MYPS/amio-php-sdk",
+  "description": "A PHP client library for accessing amio.io APIs.",
+  "version": "0.0.1",
+  "authors": [
+    {
+      "name": "Petr Schefzu",
+      "email": "petr.schefzu@myps.cz",
+      "homepage": "https://github.com/myps"
+    }
+  ],
+  "require": {
+    "php": "^7.1",
+    "guzzlehttp/guzzle": "^6.3",
+    "phpstan/phpstan": "^0.10.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "MYPS\\Amio\\": "src/Amio"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "MYPS\\Amio\\Tests\\": "tests/"
+    }
+  }
+}
