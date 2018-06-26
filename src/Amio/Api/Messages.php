@@ -3,7 +3,7 @@
 namespace MYPS\Amio\Api;
 
 use MYPS\Amio\Contacts\Types\ContactTypeInterface;
-use MYPS\Amio\Exceptions\ApiErrorException;
+use MYPS\Amio\Exceptions\AmioResponseException;
 use MYPS\Amio\Messages\MessageInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -68,7 +68,7 @@ class Messages
      * @param int                  $channelId Channel ID.
      * @param ContactTypeInterface $contact   Contact.
      *
-     * @throws ApiErrorException When API return another status then 200 return exception.
+     * @throws AmioResponseException When API return another status then 200 return exception.
      * @return int
      */
     public function send(MessageInterface $message, int $channelId, ContactTypeInterface $contact): int
@@ -82,7 +82,7 @@ class Messages
         $this->_lastResponse = $this->_client->request('POST', '/v1/messages', ['json' => $body]);
 
         if ($this->_lastResponse->getStatusCode() !== 201) {
-            throw new ApiErrorException($this->_lastResponse->getBody()->getContents());
+            throw new AmioResponseException($this->_lastResponse->getBody()->getContents());
         }
 
         $responseContent = json_decode($this->_lastResponse->getBody()->getContents(), true);
