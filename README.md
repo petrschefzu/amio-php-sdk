@@ -54,7 +54,7 @@ $contact = new MYPS\Amio\Contacts\Types\Identifier('contact_id');
 $message = new \MYPS\Amio\Messages\TextMessage('This is test.');
 
 try{
-    $messageApi->send($message, 'channel_id', $idContact);
+    $messageApi->send($message, 'channel_id', $contact);
 } catch (\MYPS\Amio\Exceptions\AmioResponseException $e) {
     echo 'Amio return an error: '.$e->getMessage();
 }
