@@ -35,7 +35,7 @@ final class Identifier implements ContactTypeInterface
      */
     public function getContent(): array
     {
-        return ['id' => $this->_id];
+        return ['id' => (string) $this->_id];
 
     }//end getContent()
 
