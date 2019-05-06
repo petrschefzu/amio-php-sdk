@@ -1,15 +1,15 @@
 <?php
 
-namespace MYPS\Amio\Messages;
+namespace MYPS\Amio\Messages\Types;
 
 /**
- * Class AudioMessage
+ * Class VideoMessage
  */
-final class AudioMessage implements MessageInterface
+final class Video implements MessageInterface
 {
 
     /**
-     * Audio url.
+     * Video url.
      *
      * @var string
      */
@@ -19,7 +19,7 @@ final class AudioMessage implements MessageInterface
     /**
      * Message constructor.
      *
-     * @param string $url Audio url.
+     * @param string $url Video url.
      */
     public function __construct(string $url)
     {
@@ -52,7 +52,7 @@ final class AudioMessage implements MessageInterface
      */
     public function getType(): string
     {
-        return MessageEnum::AUDIO;
+        return Enum::VIDEO;
 
     }//end getType()
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace MYPS\Amio\Messages;
+namespace MYPS\Amio\Messages\Types;
 
 /**
  * Class FileMessage
  */
-final class FileMessage implements MessageInterface
+final class File implements MessageInterface
 {
 
     /**
@@ -52,7 +52,7 @@ final class FileMessage implements MessageInterface
      */
     public function getType(): string
     {
-        return MessageEnum::FILE;
+        return Enum::FILE;
 
     }//end getType()
 

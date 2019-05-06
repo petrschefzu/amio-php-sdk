@@ -29,9 +29,9 @@ final class Client
         $this->_client = new \GuzzleHttp\Client(
             [
                 'base_uri' => self::BASE_URL,
-                'headers'  => [
-                    'Content-Type'  => 'application/json',
-                    'Authorization' => 'Bearer '.$accessToken,
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Authorization' => 'Bearer ' . $accessToken,
                 ],
             ]
         );
@@ -42,13 +42,14 @@ final class Client
     /**
      * Create request to Amio.io
      *
-     * @param string $method  Request method.
-     * @param string $uri     Request uri.
-     * @param array  $options Request additional options.
+     * @param string $method Request method.
+     * @param string $uri Request uri.
+     * @param array $options Request additional options.
      *
      * @return ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function request(string $method, string $uri, array $options=[]): ResponseInterface
+    public function request(string $method, string $uri, array $options = []): ResponseInterface
     {
         return $this->_client->request($method, $uri, $options);
 

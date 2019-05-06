@@ -1,11 +1,11 @@
 <?php
 
-namespace MYPS\Amio\Messages;
+namespace MYPS\Amio\Messages\Types;
 
 /**
- * Class MessageEnum
+ * Class Enum
  */
-class MessageEnum
+final class Enum
 {
     const TEXT      = 'text';
     const IMAGE     = 'image';

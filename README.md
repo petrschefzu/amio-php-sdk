@@ -1,60 +1,69 @@
 # amio-php-sdk
-A PHP client library for accessing Amio.io APIs https://docs.amio.io/v1.0/reference
+PHP client library implementing [Amio API](https://docs.amio.io/v1.0/reference) for instant messengers.
 
-## Message types
+> Let us know how to improve this library. We'll be more than happy if you report any issues or even create pull requests. ;-)
 
-> **Text message**
-```php
-$message = new \MYPS\Amio\Messages\TextMessage('This is test.');
+## Prerequisities
+[Signup to Amio](https://app.amio.io/signup) and create a channel before using this library.
+
+## Installation
+
+```bash
+composer require myps/amio-php-sdk
 ```
 
-> **Image message**
+## Quickstart
+
+#### Send a message
 ```php
-$message = new \MYPS\Amio\Messages\ImageMessage('https://www.example.com/photo.jpeg');
-```
-
-> **Audio message**
-```php
-$message = new \MYPS\Amio\Messages\AudioMessage('https://www.example.com/audio.mp3');
-```
-
-> **Video message**
-```php
-$message = new \MYPS\Amio\Messages\VideoMessage('https://www.example.com/video.mp4');
-```
-
-> **File message**
-```php
-$message = new \MYPS\Amio\Messages\FileMessage('https://www.example.com/file.pdf');
-```
-
-## Contact types
-
-> **Amio contact id**
-```php
-$contact = new MYPS\Amio\Contacts\Types\Identifier('channel_contact_id');
-```
-
-> **Phone number**
-```php
-$contact = new \MYPS\Amio\Contacts\Types\PhoneNumber('+420123456789');
-```
-## Usage
-
-> **Note:** This version of the Amio SDK for PHP requires PHP 7.1 or greater.
-
-```php
-require_once __DIR__ . '/vendor/autoload.php'; // change path as needed
-
-$client = new \MYPS\Amio\Api\Client('access_token');
+$client = new \MYPS\Amio\Api\Client('get access token at https://app.amio.io/administration/settings/api');
 
 $messageApi = new \MYPS\Amio\Api\Messages($client);
 
-$contact = new MYPS\Amio\Contacts\Types\Identifier('contact_id');
-$message = new \MYPS\Amio\Messages\TextMessage('This is test.');
 
-try{
-    $messageApi->send($message, 'channel_id', $contact);
+try {
+    //Step 1 - create message
+    $message = \MYPS\Amio\Messages\Message::text("Hello facebook!");
+    
+    //Step 2 - send message
+    $messageApi->send($message, "{CHANNEL_ID}", ["id" => "{CONTACT_ID}"]);
+    
+    //Shorter way to send sms to phone number
+    $messageApi->sendSMS("Hello world!", "{CHANNEL_ID}", "{PHONE_NUMBER}");
 } catch (\MYPS\Amio\Exceptions\AmioResponseException $e) {
-    echo 'Amio return an error: '.$e->getMessage();
+    echo "Amio error: {$e->getMessage()}";
+} catch (\GuzzleHttp\Exception\GuzzleException $e) {
+    echo "Guzzle error: {$e->getMessage()}";
 }
+```
+
+#### Receive a message
+```php
+// Create your own classes to handle messages:
+class MyDeliveredMessagesHandler implements \MYPS\Amio\Webhooks\WebHookHandlerInterface
+{
+
+    public function handleWebHook(array $data): void
+    {
+        // Optionally you can use predefined message object
+        $message = \MYPS\Amio\Webhooks\Types\MessagesDelivered::createFromRequest($data);
+    }
+}
+
+class MyFailedMessageHandler implements \MYPS\Amio\Webhooks\WebHookHandlerInterface
+{
+
+    public function handleWebHook(array $data): void
+    {
+        // Optionally you can use predefined message object
+        $message = \MYPS\Amio\Webhooks\Types\MessageFailed::createFromRequest($data);
+    }
+}
+
+$webhookHandler = new \MYPS\Amio\Webhooks\WebHookHandler($enable, ['{CHANNEL_ID}' => '{SECRET}']);
+
+$webhookHandler->onMessagesDelivered(new MyDeliveredMessagesHandler());
+$webhookHandler->onMessageFailed(new MyFailedMessageHandler());
+
+$webhookHandler->handle(file_get_contents('php://input'), getallheaders());
+```

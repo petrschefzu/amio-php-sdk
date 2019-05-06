@@ -1,6 +1,6 @@
 <?php
 
-namespace MYPS\Amio\Messages;
+namespace MYPS\Amio\Messages\Types;
 
 /**
  * Interface MessageInterface

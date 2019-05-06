@@ -1,29 +1,29 @@
 <?php
 
-namespace MYPS\Amio\Messages;
+namespace MYPS\Amio\Messages\Types;
 
 /**
- * Class TextMessage
+ * Class ImageMessage
  */
-final class TextMessage implements MessageInterface
+final class Image implements MessageInterface
 {
 
     /**
-     * Content of message.
+     * Image url.
      *
      * @var string
      */
-    private $_content;
+    private $_url;
 
 
     /**
      * Message constructor.
      *
-     * @param string $content Message content.
+     * @param string $url Image url.
      */
-    public function __construct(string $content)
+    public function __construct(string $url)
     {
-        $this->_content = $content;
+        $this->_url = $url;
 
     }//end __construct()
 
@@ -37,7 +37,9 @@ final class TextMessage implements MessageInterface
     {
         return [
             'type'    => self::getType(),
-            'payload' => $this->_content,
+            'payload' => [
+                'url' => $this->_url,
+            ]
         ];
 
     }//end getContent()
@@ -50,7 +52,7 @@ final class TextMessage implements MessageInterface
      */
     public function getType(): string
     {
-        return MessageEnum::TEXT;
+        return Enum::IMAGE;
 
     }//end getType()
 

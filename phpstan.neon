@@ -1,0 +1,6 @@
+parameters:
+	autoload_directories:
+		- %rootDir%/../../../tests
+	ignoreErrors:
+		- '#PHPDoc tag @throws with type GuzzleHttp\\Exception\\GuzzleException is not subtype of Throwable#'
+		- '#PHPDoc tag @throws with type GuzzleHttp\\Exception\\GuzzleException|LogicException is not subtype of Throwable#'

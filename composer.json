@@ -1,7 +1,9 @@
 {
   "name": "myps/amio-php-sdk",
   "description": "A PHP client library for accessing amio.io APIs.",
-  "version": "0.0.1",
+  "version": "0.1.0",
+  "type": "library",
+  "license": "MIT",
   "authors": [
     {
       "name": "Petr Schefzu",
@@ -11,6 +13,7 @@
   ],
   "require": {
     "php": "^7.1",
+    "ext-json": "*",
     "guzzlehttp/guzzle": "^6.3"
   },
   "require-dev": {

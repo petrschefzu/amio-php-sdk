@@ -1,29 +1,29 @@
 <?php
 
-namespace MYPS\Amio\Messages;
+namespace MYPS\Amio\Messages\Types;
 
 /**
- * Class VideoMessage
+ * Class TextMessage
  */
-final class VideoMessage implements MessageInterface
+final class Text implements MessageInterface
 {
 
     /**
-     * Video url.
+     * Content of message.
      *
      * @var string
      */
-    private $_url;
+    private $_content;
 
 
     /**
      * Message constructor.
      *
-     * @param string $url Video url.
+     * @param string $content Message content.
      */
-    public function __construct(string $url)
+    public function __construct(string $content)
     {
-        $this->_url = $url;
+        $this->_content = $content;
 
     }//end __construct()
 
@@ -37,9 +37,7 @@ final class VideoMessage implements MessageInterface
     {
         return [
             'type'    => self::getType(),
-            'payload' => [
-                'url' => $this->_url,
-            ]
+            'payload' => $this->_content,
         ];
 
     }//end getContent()
@@ -52,7 +50,7 @@ final class VideoMessage implements MessageInterface
      */
     public function getType(): string
     {
-        return MessageEnum::VIDEO;
+        return Enum::TEXT;
 
     }//end getType()
 
